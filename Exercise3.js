@@ -4,13 +4,18 @@ const http = require('http');
 const os = require('os');
 const server = http.createServer((req,res) => {
     if(req.url === '/'){
-        $url = req.url;
-         fs.writeFile('log.txt',$url,(err,data) => {
-              if(err) throw err;
-         });
+        const url = req.url;
+         fs.appendFile('log.txt',`\n${url}`, err => {
+             if (err) throw err;
+         })
          res.writeHead(200,{'Content-type':'text/plain'});
          res.end(os.platform());        
-    } else {
+    }
+     else {
+         const url = req.url;
+           fs.appendFile('log.txt',`\n${url}`, err => {
+             if (err) throw err;
+         })
         res.writeHead(404, {'Content-type': 'text/plain'});
         res.end("Page Not Found");
     }
